@@ -25,5 +25,5 @@ considerese mejorar la seguridad en la configuración del usuario.
 ## Configuración de la Base de Datos sobre el servidor de aplicación
 
 Para configurar la URL de acceso al servidor de la base de datos es necesario añadir las credenciales
-establecidas para la conexión en archivo (../WebContent/WEB-INF/classes/app.properties)[app.properties]
+establecidas para la conexión en archivo (./../WebContent/WEB-INF/classes/app.properties)[app.properties]
 del la aplicación.
