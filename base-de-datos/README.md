@@ -22,7 +22,7 @@ con los permisos necesarios para acceder a la base de datos de los archivos. Sin
 es un mero ejemplo y para su configuración en un servidor para el funcionamiento final de la aplicación
 considerese mejorar la seguridad en la configuración del usuario.
 
-## Configuración de la Base de Datos sobre el servidor de aplicación
+## Conexión de la Base de Datos con el servidor de aplicación
 
 Para configurar la URL de acceso al servidor de la base de datos es necesario añadir las credenciales
 establecidas para la conexión en archivo [app.properties](../WebContent/WEB-INF/classes/app.properties)
