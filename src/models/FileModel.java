@@ -22,8 +22,6 @@ public class FileModel {
     private String extension;
     @Column(name="tipo_mime")
     private String mimeType;
-    @Column(name="contenido")
-    private String content;
     
     
     /** Constructors, getters and setters. */
@@ -35,14 +33,6 @@ public class FileModel {
 		this.name = name;
 		this.extension = extension;
 		this.mimeType = mimeType;
-	}
-    
-    public FileModel(int id, String name, String extension, String mimeType, String content) {
-		this.id = id;
-		this.name = name;
-		this.extension = extension;
-		this.mimeType = mimeType;
-		this.content = content;
 	}
 
 	public int getId() {
@@ -69,14 +59,6 @@ public class FileModel {
 		this.mimeType = mimeType;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
 	public String getExtension() {
 		return extension;
 	}
@@ -84,5 +66,4 @@ public class FileModel {
 	public void setExtension(String extension) {
 		this.extension = extension;
 	}
-    
 }

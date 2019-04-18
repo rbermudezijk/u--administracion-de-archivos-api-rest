@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 import controllers.AdminFileController;
-import controllers.TestController;
 
 @Configuration
 @EnableWebMvc
@@ -24,9 +23,6 @@ public class WebConfig implements WebMvcConfigurer{
 
 	@Bean
 	public AdminFileController adminFileController(){ return new AdminFileController(); }
-	
-	@Bean
-	public TestController testController(){ return new TestController(); }
 	
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters)

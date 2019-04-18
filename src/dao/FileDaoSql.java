@@ -24,14 +24,8 @@ public class FileDaoSql {
 		return sessionFactory.getCurrentSession();
 	}
 	
-	public List<FileModel> selectAll(){
-		String querySelect = "select new FileModel("
-				           + "fd.id, fd.name,"
-				           + "fd.extension,"
-				           + "fd.mimeType) "
-				           + "from FileModel fd";
-		
-	    return (List<FileModel>) getSession().createQuery(querySelect).getResultList();
+	public List<FileModel> selectAll() {
+		return (List<FileModel>) getSession().createCriteria(FileModel.class).list();
 	}
 	
 	public FileModel select(int id) {
@@ -49,7 +43,6 @@ public class FileDaoSql {
 		fileOld.setName(fileNew.getName());
 		fileOld.setExtension(fileNew.getExtension());
 		fileOld.setMimeType(fileNew.getMimeType());
-		fileOld.setContent(fileNew.getContent());
 		
 		return fileOld;
 	}

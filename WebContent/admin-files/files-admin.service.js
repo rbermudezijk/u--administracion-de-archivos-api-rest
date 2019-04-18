@@ -9,7 +9,7 @@ var app = app || {};
     
     function FilesAdminService () {
         
-        this.url = 'http://localhost:8080/proyecto-ejercicio/rest/admin-files';
+        this.url = 'http://localhost:8080/microservicio-control-de-archivos/rest-v1/admin-files';
         this.file = undefined;
         
         this.setFile = function (fileObj) {

@@ -15,13 +15,13 @@ public class FileService {
 	@Autowired
 	private FileDaoSql daoFile;
 
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<FileModel> selectAll()
 	{
 		return daoFile.selectAll();
 	}
 	
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public FileModel select(int id)
 	{
 		return daoFile.select(id);

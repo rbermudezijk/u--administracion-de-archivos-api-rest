@@ -53,7 +53,7 @@ public class HibernateConfig
     		env.getRequiredProperty("hibernate.current.session.context.class")
     	);
     	
-    	properties.put("hibernate.id.new_generator_mappings","false");
+    	properties.put("hibernate.id.new_generator_mappings", "false");
     	
     	return properties;
     }
@@ -91,6 +91,7 @@ public class HibernateConfig
     	
     	return sessionFactory;
     }
+    
     
     @Bean
     public HibernateTransactionManager getTransactionManager() {

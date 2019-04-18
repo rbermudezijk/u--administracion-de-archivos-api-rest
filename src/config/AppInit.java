@@ -12,7 +12,7 @@ import config.HibernateConfig;
 import config.WebConfig;
 
 @Configuration
-public class AppInit  extends AbstractAnnotationConfigDispatcherServletInitializer
+public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer
 {
 	@Override
 	@Nullable
@@ -31,7 +31,7 @@ public class AppInit  extends AbstractAnnotationConfigDispatcherServletInitializ
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] {"/rest/*"};
+		return new String[] {"/rest-v1/*"};
 	}
 	
 	@Override
