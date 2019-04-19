@@ -17,7 +17,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import models.FileModel;
+import models.Archivo;
+import models.Grupo;
 
 
 @Configuration
@@ -84,7 +85,8 @@ public class HibernateConfig
     	
     	sessionFactory.setDataSource(getDataSource());
     	sessionFactory.setAnnotatedClasses(
-    		FileModel.class
+    		Archivo.class,
+    		Grupo.class
     	);
     	sessionFactory.setPackagesToScan(new String[] {"entities"});
     	sessionFactory.setHibernateProperties(getHibernateProperties());

@@ -15,14 +15,14 @@ import org.springframework.web.servlet.view.JstlView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 
-import controllers.AdminFileController;
+import controllers.ControladorArchivos;
 
 @Configuration
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer{
 
 	@Bean
-	public AdminFileController adminFileController(){ return new AdminFileController(); }
+	public ControladorArchivos adminFileController(){ return new ControladorArchivos(); }
 	
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters)
@@ -42,7 +42,6 @@ public class WebConfig implements WebMvcConfigurer{
 		vr.setPrefix("/components/");
 		vr.setSuffix(".template.html");
 		
-		System.out.println(vr.getRedirectHosts());
 		return vr;
 	}
 }
