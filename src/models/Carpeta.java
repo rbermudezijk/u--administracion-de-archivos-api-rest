@@ -19,7 +19,7 @@ import models.Archivo;
 @Entity
 @Table(name="sa__carpetas")
 public class Carpeta {
-	
+
 	@Id
 	@Column(name="id_carpeta")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,8 +29,8 @@ public class Carpeta {
 	private int idPropietario;
 	@Column(name="nombre")
 	private String nombre;
+	
 	@OneToMany(mappedBy="carpeta")
-	@JsonIgnore
 	private Set<Archivo> archivos;
 
 	public Carpeta() {}

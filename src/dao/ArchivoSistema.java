@@ -10,12 +10,12 @@ import java.util.Base64;
 @Repository
 public class ArchivoSistema {
 	
-	public static String CONTENEDOR = "c:/Servidores-Desarrollos/apache-2.4.35/contenedor/"; 
+	public static String CONTENEDOR = "c:/Servidores-Desarrollos/apache-2.4.35/contenedor"; 
 	
 	public void agregar(Archivo archivo) {
 		try ( 
 			BufferedOutputStream fichero = new BufferedOutputStream(
-				new FileOutputStream(archivo.ruta(CONTENEDOR)) 
+				new FileOutputStream(archivo.getRuta(CONTENEDOR)) 
 			)
 		){
 		    fichero.write(Base64.getDecoder().decode(archivo.getContenido()));
@@ -26,7 +26,7 @@ public class ArchivoSistema {
 	}
 	
 	public void eliminar(Archivo archivo) {
-		File fichero = new File(archivo.ruta(CONTENEDOR));
+		File fichero = new File(archivo.getRuta(CONTENEDOR));
 		try {
 			if (fichero.exists()) {
 				fichero.delete();

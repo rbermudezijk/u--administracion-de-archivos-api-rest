@@ -36,31 +36,48 @@ public class Archivo {
     private String extension;
     @Column(name="tipo_mime")
     private String tipoMIME;
+
+    /**
+     * Representa la union con la tabla/objeto de carpetas/Carpeta.
+     * Se agrega anotación JsonIgnore para evitar problemas de mapeo recursivo
+     * de JacksonMapper.
+     */
     @ManyToOne
     @JoinColumn(name="id_carpeta", nullable=false)
+    @JsonIgnore
     private Carpeta carpeta;
     
+    /* 
+     * Se añade solo lectura del JSON porque el contenido se almacena
+     * y proporciona de forma ajena a la base de datos. Sin embargo,
+     * el contenido es parte del archivo. En otros terminos la base de
+     * datos solo contiene la descripción del archivo, mientras que el
+     * contenido se almacena en el sistema de archivos.
+     */
     @Transient
     @JsonProperty(access = Access.WRITE_ONLY)
     private String contenido;
     
 
-
 	/** Constructors, getters and setters. */
     public Archivo() {}
 
-    public Archivo(int id, int idLlave, String nombre, String extension, String tipoMIME) {
-		this.id = id;
-		this.idLlave = idLlave;
-		this.nombre = nombre;
-		this.extension = extension;
-		this.tipoMIME = tipoMIME;
-	}
-
+    /**
+     * Cuando la consulta se hace por archivos, en el JSON de 
+     * respuesta no se requiere el objeto con la descripción
+     * completa de la carpeta que agrupa el archivo sino solo
+     * el nombre de la carpeta/ubicación del archivo.
+     * 
+     * @return Ubicación del archivo
+     * */
+    public String getUbicacion() {
+    	return carpeta.getNombre();
+    }
+    
     public Carpeta getCarpeta() {
 		return carpeta;
 	}
-
+    
 	public void setCarpeta(Carpeta carpeta) {
 		this.carpeta = carpeta;
 	}
@@ -111,9 +128,5 @@ public class Archivo {
 	
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
-	}
-	
-	public String ruta(String contenedor) {
-		return contenedor + this.id + "." + this.extension;
 	}
 }
