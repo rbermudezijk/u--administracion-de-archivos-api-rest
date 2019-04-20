@@ -7,6 +7,7 @@
         
         this.nombre    = descripción[0];
         this.idLlave   = 1;
+        this.idCarpeta = 1;
         this.extension = descripción[1];
         this.tipoMIME  = contenido[0];
         this.contenido = contenido[1];

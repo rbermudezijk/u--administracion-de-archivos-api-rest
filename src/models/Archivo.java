@@ -9,15 +9,18 @@ import javax.persistence.Table;
 
 /*https://stackoverflow.com/questions/4662582/make-hibernate-ignore-class-variables-that-are-not-mapped*/
 import javax.persistence.Transient;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 
 /* https://stackoverflow.com/questions/12505141/only-using-jsonignore-during-serialization-but-not-deserialization */
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import models.Carpeta;
 
 @Entity
-@Table(name="archivos")
+@Table(name="sa__archivos")
 public class Archivo {
 	
 	/** Columns. */
@@ -33,12 +36,17 @@ public class Archivo {
     private String extension;
     @Column(name="tipo_mime")
     private String tipoMIME;
+    @ManyToOne
+    @JoinColumn(name="id_carpeta", nullable=false)
+    private Carpeta carpeta;
     
     @Transient
-    @JsonProperty(access=Access.WRITE_ONLY)
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String contenido;
     
-    /** Constructors, getters and setters. */
+
+
+	/** Constructors, getters and setters. */
     public Archivo() {}
 
     public Archivo(int id, int idLlave, String nombre, String extension, String tipoMIME) {
@@ -48,12 +56,15 @@ public class Archivo {
 		this.extension = extension;
 		this.tipoMIME = tipoMIME;
 	}
-    
-    public Archivo(int id, int idLlave, String nombre, String extension, String tipoMIME, String contenido) {
-		this(id, idLlave, nombre, extension, tipoMIME);
-		this.contenido = contenido;
+
+    public Carpeta getCarpeta() {
+		return carpeta;
 	}
 
+	public void setCarpeta(Carpeta carpeta) {
+		this.carpeta = carpeta;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -102,15 +113,7 @@ public class Archivo {
 		this.contenido = contenido;
 	}
 	
-	@JsonIgnore
 	public String ruta(String contenedor) {
 		return contenedor + this.id + "." + this.extension;
-	}
-	
-	@Override
-	public String toString() {
-		return "ID = " + this.id + "\n" +
-			   "Nombre = " + this.nombre + "\n" +
-			   "Contenido = " + this.contenido + "\n";
 	}
 }
