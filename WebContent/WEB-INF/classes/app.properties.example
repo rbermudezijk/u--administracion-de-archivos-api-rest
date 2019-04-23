@@ -1,8 +1,8 @@
 # Database
 datasource.driver=com.mysql.cj.jdbc.Driver
-datasource.url=jdbc:mysql://localhost:3306/ms_administracion_de_archivos?useLegacyDatetimeCode=false&serverTimezone=UTC
-datasource.username=ms-administracion-de-archivos
-datasource.password=ms-administracion-de-archivos-1234
+datasource.url=jdbc:mysql://<dominio>:3306/ms_administracion_de_archivos?useLegacyDatetimeCode=false&serverTimezone=UTC
+datasource.username=<usuario de la base de datos>
+datasource.password=<contraseña de la base de datos>
 
 hibernate.dialect=org.hibernate.dialect.MySQLDialect
 hibernate.show_sql=true
