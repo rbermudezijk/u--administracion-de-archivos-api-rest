@@ -3,10 +3,6 @@ package controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,65 +10,60 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import models.Archivo;
 import services.ServicioDeArchivos;
+import services.ServicioDeSesion;
 
-@Controller
+@RestController
 @RequestMapping("/archivos")
 public class ControladorArchivos {
 
 	@Autowired
-	private ServicioDeArchivos servDeArchivos;
+	private ServicioDeArchivos servicioDeArchivos;
+	@Autowired
+	private ServicioDeSesion sesionDeAPI;
 	
-	@CrossOrigin(origins = "*")
-	@GetMapping
-	public ResponseEntity<List<Archivo>> consultarTodos()
-	{
-		return new ResponseEntity<List<Archivo>>(
-		    servDeArchivos.consultarTodo(), HttpStatus.OK
-		);
-	}
-	
-	@CrossOrigin(origins = "*")
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Archivo> consultar(@PathVariable int id)
+	public Archivo consultar(@PathVariable int id)
 	{
-	    return new ResponseEntity<Archivo>(
-	    	servDeArchivos.consultar(id), HttpStatus.OK
-	    );
+	    return servicioDeArchivos.consultar(id, sesionDeAPI.idUsuarioAPI());
 	}
 	
-	@CrossOrigin(origins = "*")
+	@GetMapping("/subespacio/{subespacioB64}")
+	public List<Archivo> consultar(@PathVariable String subespacioB64)
+	{
+	    return servicioDeArchivos.consultar(subespacioB64, sesionDeAPI.idUsuarioAPI());
+	}
+	
 	@DeleteMapping("/id/{id}")
-	public ResponseEntity<Archivo> eliminar(@PathVariable int id)
+	public Archivo eliminar(@PathVariable int id)
 	{
-		return new ResponseEntity<Archivo>(
-			this.servDeArchivos.eliminar(id), HttpStatus.OK
-		);
+		return this.servicioDeArchivos.eliminar(id, sesionDeAPI.idUsuarioAPI());
 	}
 	
-	@CrossOrigin(origins = "*")
+	@DeleteMapping("/subespacio/{subespacioB64}")
+	public List<Archivo> eliminar(@PathVariable String subespacioB64)
+	{
+	    return servicioDeArchivos.eliminar(subespacioB64, sesionDeAPI.idUsuarioAPI());
+	}
+	
 	@PostMapping(consumes="application/json")
-	public ResponseEntity<Archivo> agregar(@RequestBody Archivo archivo)
+	public Archivo agregar(@RequestBody Archivo archivo)
 	{
-		return new ResponseEntity<Archivo>(
-		    this.servDeArchivos.agregar(archivo),
-		    HttpStatus.OK
-		);
+		return this.servicioDeArchivos.agregar(archivo, sesionDeAPI.idUsuarioAPI());
 	}
 	
-	@CrossOrigin(origins = "*")
-	@PutMapping(
-		path     = "/id/{id}",
-		consumes = "application/json"
-	)
-	public ResponseEntity<Archivo> actualizar(
-		@PathVariable int id,
-		@RequestBody Archivo archivo
-	) {
-		return new ResponseEntity<Archivo>(
-			this.servDeArchivos.actualizar(id, archivo), HttpStatus.OK
-		);
+	@PostMapping(path="/ubicacion/{ubicacionB64}",consumes="application/json")
+	public List<Archivo> agregar(@RequestBody List<Archivo> archivos, @PathVariable String ubicacionB64)
+	{
+		return this.servicioDeArchivos.agregar(archivos, ubicacionB64, sesionDeAPI.idUsuarioAPI());
+	}
+	
+	@PutMapping(path="/id/{id}", consumes="application/json")
+	public Archivo actualizar(@PathVariable int id, @RequestBody Archivo archivo)
+	{
+		return this.servicioDeArchivos.actualizar(id, sesionDeAPI.idUsuarioAPI(), archivo);
 	}
 }

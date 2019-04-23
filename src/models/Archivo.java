@@ -9,49 +9,55 @@ import javax.persistence.Table;
 
 /*https://stackoverflow.com/questions/4662582/make-hibernate-ignore-class-variables-that-are-not-mapped*/
 import javax.persistence.Transient;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
+/*import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;*/
 
 /* https://stackoverflow.com/questions/12505141/only-using-jsonignore-during-serialization-but-not-deserialization */
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import models.Carpeta;
+/*import models.Carpeta;
+import models.Llave;*/
 
 @Entity
 @Table(name="sa__archivos")
 public class Archivo {
-	
+
 	/** Columns. */
 	@Id
     @Column(name="id_archivo")
     @GeneratedValue(strategy=GenerationType.AUTO)
+	@JsonProperty(access=Access.READ_ONLY)
     private int id;
-	@Column(name="id_llave")
-	private int idLlave;
+	
+	@JsonIgnore
+	@Column(name="id_propietario")
+	private int idPropietario;
+	
     @Column(name="nombre")
     private String nombre;
+    
     @Column(name="extension")
     private String extension;
+    
     @Column(name="tipo_mime")
     private String tipoMIME;
-
-    /**
-     * Representa la union con la tabla/objeto de carpetas/Carpeta.
-     * Se agrega anotación JsonIgnore para evitar problemas de mapeo recursivo
-     * de JacksonMapper.
-     */
-    @ManyToOne
-    @JoinColumn(name="id_carpeta", nullable=false)
-    @JsonIgnore
-    private Carpeta carpeta;
     
-    /* 
-     * Se añade solo lectura del JSON porque el contenido se almacena
+    /*@JsonProperty(access=Access.READ_ONLY)*/
+    @Column(name="ubicacion")
+    private String ubicacion = "/";
+
+    /*@ManyToOne
+    @JoinColumn(name="id_carpeta_padre", nullable=true)
+    @JsonIgnore
+    private Carpeta carpeta;*/
+    
+    /**
+     * Se aÃ±ade solo lectura del JSON porque el contenido se almacena
      * y proporciona de forma ajena a la base de datos. Sin embargo,
      * el contenido es parte del archivo. En otros terminos la base de
-     * datos solo contiene la descripción del archivo, mientras que el
+     * datos solo contiene la descripciÃ³n del archivo, mientras que el
      * contenido se almacena en el sistema de archivos.
      */
     @Transient
@@ -61,26 +67,6 @@ public class Archivo {
 
 	/** Constructors, getters and setters. */
     public Archivo() {}
-
-    /**
-     * Cuando la consulta se hace por archivos, en el JSON de 
-     * respuesta no se requiere el objeto con la descripción
-     * completa de la carpeta que agrupa el archivo sino solo
-     * el nombre de la carpeta/ubicación del archivo.
-     * 
-     * @return Ubicación del archivo
-     * */
-    public String getUbicacion() {
-    	return carpeta.getNombre();
-    }
-    
-    public Carpeta getCarpeta() {
-		return carpeta;
-	}
-    
-	public void setCarpeta(Carpeta carpeta) {
-		this.carpeta = carpeta;
-	}
 	
 	public int getId() {
 		return id;
@@ -89,13 +75,13 @@ public class Archivo {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public int getIdLlave() {
-		return idLlave;
-	}
 	
-	public void setIdLlave(int id_llave) {
-		this.idLlave = id_llave;
+	public int getIdPropietario() {
+		return idPropietario;
+	}
+
+	public void setIdPropietario(int idPropietario) {
+		this.idPropietario = idPropietario;
 	}
 	
 	public String getNombre() {
@@ -121,12 +107,31 @@ public class Archivo {
 	public void setExtension(String extension) {
 		this.extension = extension;
 	}
+	
 
+	public String getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	/**
+	 * Transient methods.
+	 */
 	public String getContenido() {
 		return contenido;
 	}
 	
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
+	}
+	
+	/**
+	 * Ignore methods
+	 */
+	public String generarRuta(String contenedor) {
+		return contenedor + "/" + id + "." + extension;
 	}
 }

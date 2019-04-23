@@ -1,0 +1,43 @@
+package interceptores;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import services.ServicioDeSesion;
+
+
+
+public class InterceptorDeSesion extends HandlerInterceptorAdapter {
+	
+	@Autowired
+	ServicioDeSesion sesionDeAPI;
+	
+	@Override
+	/**
+	 * Tener en cuenta las siguientes excepciones:
+	 * 
+	 * java.lang.IllegalArgumentException: Illegal base64 character -f
+     * java.lang.ArrayIndexOutOfBoundsException: 1 //cuando se envía peticion sin encabezado
+     * javax.persistence.NoResultException: No entity found for query
+     * cadena vacia (no genera excepción ).
+	 */
+    public boolean preHandle(
+    	HttpServletRequest  solicitud,
+    	HttpServletResponse respuesta,
+    	Object handler
+    ) throws Exception {
+		try {
+			respuesta.setHeader("Access-Control-Allow-Origin",  "*");
+			respuesta.setHeader("Access-Control-Allow-Methods", "*");
+			respuesta.setHeader("Access-Control-Allow-Headers", "*");
+			
+			sesionDeAPI.autorizarPeticion( solicitud.getHeader("Authorization") );
+		    return true;
+		} catch(Exception e) {
+			respuesta.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return false;
+		}
+    }
+}

@@ -18,7 +18,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import models.Archivo;
-import models.Carpeta;
+import models.Llave;
 
 
 @Configuration
@@ -86,7 +86,7 @@ public class HibernateConfig
     	sessionFactory.setDataSource(getDataSource());
     	sessionFactory.setAnnotatedClasses(
     		Archivo.class,
-    		Carpeta.class
+    		Llave.class
     	);
     	sessionFactory.setPackagesToScan(new String[] {"entities"});
     	sessionFactory.setHibernateProperties(getHibernateProperties());

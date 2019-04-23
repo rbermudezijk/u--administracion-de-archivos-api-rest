@@ -15,7 +15,7 @@ public class ArchivoSistema {
 	public void agregar(Archivo archivo) {
 		try ( 
 			BufferedOutputStream fichero = new BufferedOutputStream(
-				new FileOutputStream(archivo.getRuta(CONTENEDOR)) 
+				new FileOutputStream(archivo.generarRuta(CONTENEDOR)) 
 			)
 		){
 		    fichero.write(Base64.getDecoder().decode(archivo.getContenido()));
@@ -26,7 +26,7 @@ public class ArchivoSistema {
 	}
 	
 	public void eliminar(Archivo archivo) {
-		File fichero = new File(archivo.getRuta(CONTENEDOR));
+		File fichero = new File(archivo.generarRuta(CONTENEDOR));
 		try {
 			if (fichero.exists()) {
 				fichero.delete();
