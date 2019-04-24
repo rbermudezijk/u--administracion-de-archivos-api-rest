@@ -10,7 +10,8 @@ import java.util.Base64;
 @Repository
 public class ArchivoSistema {
 	
-	public static String CONTENEDOR = "c:/Servidores-Desarrollos/apache-2.4.35/contenedor"; 
+	//public static String CONTENEDOR = "/var/www/html/contenedor";
+	public static String CONTENEDOR = "C:\\Servidores-Desarrollos\\apache-2.4.35\\contenedor";
 	
 	public void agregar(Archivo archivo) {
 		try ( 
@@ -19,6 +20,8 @@ public class ArchivoSistema {
 			)
 		){
 		    fichero.write(Base64.getDecoder().decode(archivo.getContenido()));
+		    File file = new File(archivo.generarRuta(CONTENEDOR));
+		    file.setReadable(true, false);
 		}
 		catch (Exception e) {
 			System.out.println(e.toString());

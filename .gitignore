@@ -3,3 +3,4 @@
 /.settings/
 .project
 **/app.properties
+**/app.properties.production

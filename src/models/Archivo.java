@@ -47,13 +47,17 @@ public class Archivo {
     /*@JsonProperty(access=Access.READ_ONLY)*/
     @Column(name="ubicacion")
     private String ubicacion = "/";
+    
+    @Column(name="__insercion", insertable = false)
+    @JsonProperty(access=Access.READ_ONLY)
+    private String fechaDeInsercion;
 
     /*@ManyToOne
     @JoinColumn(name="id_carpeta_padre", nullable=true)
     @JsonIgnore
     private Carpeta carpeta;*/
-    
-    /**
+
+	/**
      * Se añade solo lectura del JSON porque el contenido se almacena
      * y proporciona de forma ajena a la base de datos. Sin embargo,
      * el contenido es parte del archivo. En otros terminos la base de
@@ -64,6 +68,15 @@ public class Archivo {
     @JsonProperty(access = Access.WRITE_ONLY)
     private String contenido;
     
+
+	public String getFechaDeInsercion() {
+		return fechaDeInsercion;
+	}
+
+	@JsonIgnore
+	public void setFechaDeInsercion(String fechaDeInsercion) {
+		this.fechaDeInsercion = fechaDeInsercion;
+	}
 
 	/** Constructors, getters and setters. */
     public Archivo() {}
