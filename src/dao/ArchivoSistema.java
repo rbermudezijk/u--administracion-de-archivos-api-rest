@@ -10,7 +10,7 @@ import java.util.Base64;
 @Repository
 public class ArchivoSistema {
 	
-	//public static String CONTENEDOR = "/var/www/html/contenedor";
+    //public static String CONTENEDOR = "/var/www/html/contenedor";
 	public static String CONTENEDOR = "C:\\Servidores-Desarrollos\\apache-2.4.35\\contenedor";
 	
 	public void agregar(Archivo archivo) {

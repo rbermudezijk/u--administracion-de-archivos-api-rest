@@ -43,8 +43,19 @@ public class Archivo {
     
     @Column(name="tipo_mime")
     private String tipoMIME;
+
+    @Column(name="comentario")
+    private String comentario;
     
-    /*@JsonProperty(access=Access.READ_ONLY)*/
+    public String getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+
+	/*@JsonProperty(access=Access.READ_ONLY)*/
     @Column(name="ubicacion")
     private String ubicacion = "/";
     

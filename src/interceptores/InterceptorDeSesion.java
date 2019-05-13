@@ -29,13 +29,9 @@ public class InterceptorDeSesion extends HandlerInterceptorAdapter {
     	Object handler
     ) throws Exception {
 		try {
-			
-			respuesta.setHeader("Access-Control-Allow-Origin",  "*");
-			respuesta.setHeader("Access-Control-Allow-Methods", "*");
-			respuesta.setHeader("Access-Control-Allow-Headers", "*");
-			
-			System.out.println(solicitud.getMethod());
-			System.out.println(solicitud.getHeader("Authorization"));
+			respuesta.setHeader("Access-Control-Allow-Origin",  solicitud.getHeader("origin"));
+			respuesta.setHeader("Access-Control-Allow-Methods", "PUT,GET,DELETE,POST,OPTIONS");
+			respuesta.setHeader("Access-Control-Allow-Headers", "Content-Type,Accept,Authorization,*");
 			
 			if (solicitud.getMethod().equals("OPTIONS")) { return true; }
 			

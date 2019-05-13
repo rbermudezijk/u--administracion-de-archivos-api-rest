@@ -25,7 +25,6 @@ public class Cifrado {
 	 */
 	public String sha256(String cadena)
 	   throws NoSuchAlgorithmException {
-		System.out.println(cadena);
 		
 		StringBuilder cifrado = new StringBuilder();
 	    
@@ -37,7 +36,6 @@ public class Cifrado {
 	    	cifrado.append(String.format("%02x",caracter));
 	    }
 		
-	    System.out.println(cifrado.toString());
 		return cifrado.toString();
 	}
 	

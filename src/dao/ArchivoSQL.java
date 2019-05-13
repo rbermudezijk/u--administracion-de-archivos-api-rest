@@ -95,6 +95,7 @@ public class ArchivoSQL {
 		Archivo archivoPasado = consultar(id, idPropietario);
 		
 		archivoPasado.setNombre(archivoActualizado.getNombre());
+		archivoPasado.setComentario(archivoActualizado.getComentario());
 		archivoPasado.setExtension(archivoActualizado.getExtension());
 		archivoPasado.setTipoMIME(archivoActualizado.getTipoMIME());
 		archivoPasado.setContenido(archivoActualizado.getContenido());
