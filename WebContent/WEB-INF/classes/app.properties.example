@@ -4,7 +4,7 @@ datasource.url=jdbc:mysql://<dominio>:3306/ms_administracion_de_archivos?useLega
 datasource.username=<usuario de la base de datos>
 datasource.password=<contraseña de la base de datos>
 
-datasource.files_path=c:/Servidores-Desarrollos/apache-2.4.35/contenedor
+datasource.files_path=<Ruta donde se almacenaran los archivos en el sistema>
 
 hibernate.dialect=org.hibernate.dialect.MySQLDialect
 hibernate.show_sql=true
