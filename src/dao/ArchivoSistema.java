@@ -4,14 +4,18 @@ import models.Archivo;
 import java.io.FileOutputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 import java.util.Base64;
 
 @Repository
+@PropertySource(value="classpath:app.properties")
 public class ArchivoSistema {
 	
-    //public static String CONTENEDOR = "/var/www/html/contenedor";
-	public static String CONTENEDOR = "C:\\Servidores-Desarrollos\\apache-2.4.35\\contenedor";
+	@Value("${datasource.files_path}")
+	public String CONTENEDOR;
 	
 	public void agregar(Archivo archivo) {
 		try ( 
